@@ -75,11 +75,18 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Run tests
-        env:
-          RAILS_ENV: test
-          # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test test:system
+      - name: Database Setup
+        # テスト実行前に、このステップを追加します
+        run: |
+          # 1. マイグレーションを実行してスキーマファイルを生成
+          bin/rails db:migrate
+
+          # 2. テスト環境のデータベースを準備
+          bin/rails db:test:prepare
+
+      - name: Run Tests
+        # 以前エラーが出ていたテスト実行ステップ
+        run: bin/rails test test:system
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
