@@ -125,13 +125,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_09_063940) do
     t.string "emergency_contact_relationship", null: false
     t.string "address", null: false
     t.date "date_of_birth", null: false
-    t.bigint "users_id", null: false
     t.bigint "role_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email"
     t.index ["role_id"], name: "index_users_on_role_id"
-    t.index ["users_id"], name: "index_users_on_users_id"
   end
 
   add_foreign_key "admins", "employment_types"
@@ -143,5 +141,4 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_09_063940) do
   add_foreign_key "students", "users"
   add_foreign_key "teachers", "users"
   add_foreign_key "users", "roles"
-  add_foreign_key "users", "users", column: "users_id"
 end
