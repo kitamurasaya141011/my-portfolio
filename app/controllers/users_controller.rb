@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  def new
-
+  def new #新規登録メソッド
+    @user = User.new
   end
 
   # 登録画面の作成
@@ -23,5 +23,32 @@ class UsersController < ApplicationController
   end
 
   def delete
+  end
+
+  def index
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(
+      :last_name,
+      :first_name,
+      :last_name_kana,
+      :first_name_kana,
+      :email,
+      # データベースには password_digest だが、フォームからは password と password_confirmation を受け取る
+      :password,
+      #:password_confirmation,
+      :gender,
+      :phone_mobile,
+      :phone_emergency,
+      :phone_home,
+      :emergency_contact_name,
+      :emergency_contact_relationship,
+      :address,
+      :date_of_birth,
+      :role_id
+    )
   end
 end
