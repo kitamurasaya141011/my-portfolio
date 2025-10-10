@@ -15,7 +15,7 @@ class CreateUsers < ActiveRecord::Migration[8.0]
       t.string :emergency_contact_relationship, null: false # 緊急連絡先の続柄
       t.string :address, null: false
       t.date :date_of_birth, null: false
-      t.references :users, :role, foreign_key: true, null: false, index: true
+      t.references :role, foreign_key: true, null: false, index: true
 
       t.timestamps
     end
