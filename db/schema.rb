@@ -20,11 +20,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_09_063940) do
     t.string "previous_job"
     t.string "education", null: false
     t.boolean "is_on_leave", default: false, null: false
-    t.bigint "admins_id", null: false
     t.bigint "employment_type_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["admins_id"], name: "index_admins_on_admins_id"
     t.index ["employment_type_id"], name: "index_admins_on_employment_type_id"
     t.index ["user_id"], name: "index_admins_on_user_id"
   end
@@ -136,7 +134,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_09_063940) do
     t.index ["users_id"], name: "index_users_on_users_id"
   end
 
-  add_foreign_key "admins", "admins", column: "admins_id"
   add_foreign_key "admins", "employment_types"
   add_foreign_key "admins", "users"
   add_foreign_key "departments", "faculties"

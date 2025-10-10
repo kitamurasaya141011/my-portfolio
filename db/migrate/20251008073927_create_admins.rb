@@ -9,7 +9,7 @@ class CreateAdmins < ActiveRecord::Migration[8.0]
       t.string :previous_job #前職
       t.string :education, null: false # 学歴
       t.boolean :is_on_leave, default: false, null:false # 休職中か（デフォルトがfalse）
-      t.references :admins, :employment_type, foreign_key: true, null: false
+      t.references :employment_type, foreign_key: true, null: false
       t.timestamps
     end
   end
