@@ -1,0 +1,2 @@
+class StudentAffiliation < ApplicationRecord
+end
