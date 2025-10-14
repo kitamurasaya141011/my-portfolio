@@ -85,10 +85,11 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :role_id, "役割（権限）" %>
-    <%# collection_select は外部キー（role_id）を設定する標準的な方法 %>
-    <%# Role.all で全ての役割を取得し、idを値として、nameをユーザーに表示 %>
-    <%= f.collection_select :role_id, Role.all, :id, :name %>
+  <%= f.label :role_id, "役割（権限）" %>
+  <%# 修正: @roles（管理者以外のロール）を使用 %>
+  <%= f.collection_select :role_id, @roles, :id, :name,
+                          { prompt: "役割を選択" },
+                          { class: "form-control", required: true } %>
   </div>
 
   <%# 送信ボタン %>

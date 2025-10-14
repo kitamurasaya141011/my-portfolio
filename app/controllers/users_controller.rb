@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   def new #新規登録メソッド
     @user = User.new
+    admin_role_name = '事務局'
+    @roles = Role.where.not(name: admin_role_name)
   end
 
   # 登録画面の作成
