@@ -5,9 +5,10 @@ class UsersController < ApplicationController
 
   # 登録画面の作成
   def create
-    user = User.new(user_params)
-    user.save!
-    redirect_to users_url, notice: "タスク 「#{user.name}」を登録しました。 "
+    @user = User.new(user_params)
+    @user.save
+    full_name = "#{@user.last_name} #{@user.first_name}"
+    redirect_to users_url, notice: "タスク 「#{full_name}」を登録しました。 "
   end
 
   def show
@@ -26,6 +27,7 @@ class UsersController < ApplicationController
   end
 
   def index
+    @users = User.all
   end
 
   private
