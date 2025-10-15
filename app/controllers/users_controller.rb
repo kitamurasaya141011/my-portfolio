@@ -52,7 +52,17 @@ class UsersController < ApplicationController
       :emergency_contact_relationship,
       :address,
       :date_of_birth,
-      :role_id
+      :role_id,
+      # ネストされた固有属性を許可
+      # admin_attributes: [カラム名, ...]
+      admin_attributes: [:id, :employee_number, :years_of_service, :date_of_hire, :date_of_retirement, :previous_job, :education, :is_on_leave, :employment_type_id],
+
+      # student_attributes: [カラム名, ...]
+      student_attributes: [:id, :student_id, :grade, :major], # 固有のマイグレーションに合わせて変更
+
+      # teacher_attributes: [カラム名, ...]
+      teacher_attributes: [:id, :specialty, :qualification] # 固有のマイグレーションに合わせて変更
+
     )
   end
 end

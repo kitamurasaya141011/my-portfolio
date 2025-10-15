@@ -85,11 +85,42 @@
   </div>
 
   <div class="form-group">
-  <%= f.label :role_id, "役割（権限）" %>
-  <%# 修正: @roles（管理者以外のロール）を使用 %>
-  <%= f.collection_select :role_id, @roles, :id, :name,
-                          { prompt: "役割を選択" },
-                          { class: "form-control", required: true } %>
+    <%#= f.label :role_id, "役割（権限）" %>
+    <%= f.collection_select :role_id, @roles, :id, :name,
+    { prompt: "役割を選択" },
+    { class: "form-control", required: true, id: 'role-select'} %>
+  <%# 役割選択ドロップダウン %>
+  <%#= form.select :role_id, Role.pluck(:name, :id), { prompt: '役割を選択してください' },
+  { id: 'role-select', class: 'form-control' } %>
+
+  </div>
+
+  <h3>2. 固有情報</h3>
+
+  <%# ---------------------------------------------------- %>
+  <%# 学生固有フォーム (初期非表示) %>
+  <div id="student-fields" style="display: none;">
+    <h4>学生情報</h4>
+    <%= f.fields_for :student, @user.build_student do |student_f| %>
+      <div class="form-group">
+        <%= student_f.label :student_number, "学籍番号" %>
+        <%= student_f.text_field :student_number, class: "form-control" %>
+      </div>
+      <%# ... その他の学生フィールド ... %>
+    <% end %>
+  </div>
+
+  <%# ---------------------------------------------------- %>
+  <%# 教員固有フォーム (初期非表示) %>
+  <div id="teacher-fields" style="display: none;">
+    <h4>教員情報</h4>
+    <%= f.fields_for :teacher, @user.build_teacher do |teacher_f| %>
+      <div class="form-group">
+        <%= teacher_f.label :employee_number, "教員番号" %>
+        <%= teacher_f.text_field :employee_number, class: "form-control" %>
+      </div>
+      <%# ... その他の教員フィールド ... %>
+    <% end %>
   </div>
 
   <%# 送信ボタン %>
