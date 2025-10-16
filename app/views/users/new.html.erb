@@ -107,8 +107,47 @@
         <%= student_f.text_field :student_number, class: "form-control" %>
       </div>
       <%# ... その他の学生フィールド ... %>
+
+      <div class="form-group">
+        <%= student_f.label :grade_level, "学年" %>
+        <%# 学年（integer）はセレクトボックスまたは数値フィールドが一般的 %>
+        <%= student_f.number_field :grade_level, class: "form-control", min: 1, max: 6 %>
+      </div>
+
+      <div class="form-group">
+        <%= student_f.label :parent_name, "保護者名" %>
+        <%= student_f.text_field :parent_name, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= student_f.label :relationship, "続柄" %>
+        <%# 続柄は自由入力でも良いが、セレクトボックス（例：父、母、その他）もよく使われる %>
+        <%= student_f.text_field :relationship, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= student_f.label :date_of_admission, "入学日" %>
+        <%# 日付の入力フィールド %>
+        <%= student_f.date_field :date_of_admission, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+      <%= student_f.label :date_of_separation, "卒業日" %>
+      <%# 卒業日（date_of_separation）はnullを許容するのでrequiredは不要 %>
+      <%= student_f.date_field :date_of_separation, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= student_f.check_box :is_graduated, class: "form-check-input" %>
+      <%= student_f.label :is_graduated, "卒業済み" %>
+      <%# is_graduated (boolean) はチェックボックスが一般的。初期値はRails側で設定済み。 %>
+    </div>
+
+
+
     <% end %>
   </div>
+
 
   <%# ---------------------------------------------------- %>
   <%# 教員固有フォーム (初期非表示) %>
@@ -120,6 +159,62 @@
         <%= teacher_f.text_field :employee_number, class: "form-control" %>
       </div>
       <%# ... その他の教員フィールド ... %>
+
+      <%# faculty_name (学部) - null: false %>
+      <div class="form-group">
+        <%= teacher_f.label :faculty_name, "学部" %>
+        <%= teacher_f.text_field :faculty_name, class: "form-control" %>
+      </div>
+
+      <%# department_name (学科) - null: false %>
+      <div class="form-group">
+        <%= teacher_f.label :department_name, "学科" %>
+        <%= teacher_f.text_field :department_name, class: "form-control" %>
+      </div>
+
+
+      <%# years_of_service (勤続年数) - null: false %>
+      <div class="form-group">
+        <%= teacher_f.label :years_of_service, "勤続年数" %>
+        <%# 数値型なので number_field が適切 %>
+        <%= teacher_f.number_field :years_of_service, class: "form-control" %>
+      </div>
+
+      <%# date_of_hire (採用日) - null: false %>
+      <div class="form-group">
+        <%= teacher_f.label :date_of_hire, "採用日" %>
+        <%# 日付型なので date_field または date_select が適切 %>
+        <%= teacher_f.date_field :date_of_hire, class: "form-control" %>
+        <%# または以下のような Rails のヘルパー %>
+        <%# <%= teacher_f.date_select :date_of_hire, { start_year: Date.current.year - 50, end_year: Date.current.year }, { class: "form-control" } %>
+      </div>
+
+
+      <%# education (学歴) - null: false %>
+      <div class="form-group">
+        <%= teacher_f.label :education, "学歴" %>
+        <%= teacher_f.text_field :education, class: "form-control" %>
+      </div>
+
+      <%# employment_type (雇用形態) - null: false %>
+      <div class="form-group">
+        <%= teacher_f.label :employment_type, "雇用形態" %>
+        <%# select や radio_button が望ましいですが、ここでは一旦 text_field にします %>
+        <%= teacher_f.text_field :employment_type, class: "form-control" %>
+      </div>
+
+      <%# previous_job (前職) - null: true (必須ではない) %>
+      <div class="form-group">
+        <%= teacher_f.label :previous_job, "前職" %>
+        <%= teacher_f.text_field :previous_job, class: "form-control" %>
+      </div>
+
+      <%# is_on_leave (休職中か) - default: false (null: true と同義だがデフォルト値あり) %>
+      <div class="form-check">
+        <%= teacher_f.check_box :is_on_leave, class: "form-check-input" %>
+        <%= teacher_f.label :is_on_leave, "休職中", class: "form-check-label" %>
+      </div>
+
     <% end %>
   </div>
 
