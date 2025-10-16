@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   has_secure_password
-  has_one :admin
-  has_one :teacher
-  has_one :student
+  has_one :admin, dependent: :destroy
+  has_one :teacher, dependent: :destroy
+  has_one :student, dependent: :destroy
   has_many :leaves
   belongs_to :role
 

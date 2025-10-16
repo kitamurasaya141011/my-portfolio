@@ -25,7 +25,36 @@ class UsersController < ApplicationController
   def update
   end
 
-  def delete
+  def destroy
+    #user = User.find(params[:id])
+    #if user_id == current_user.id
+    # user.destroy #destroyメソッドを使用し対象のツイートを削除する。
+    #end
+
+    # 1. 削除対象のユーザーを取得
+    user = User.find(params[:id])
+
+    # 2. 権限チェック
+    # ログインユーザーが管理者であるか（例: current_user.admin?）
+    # かつ、自分自身を削除しようとしていないか（user.id != current_user.id）をチェック
+    #
+    # 注意: 権限チェックのメソッドは、あなたのアプリの実装に合わせて変更してください
+    # if current_user.admin? && user.id != current_user.id
+    # 3. 権限があれば削除を実行
+    user.destroy
+    deleted_user_name = "#{user.last_name} #{user.first_name}"
+    redirect_to users_path, notice: "#{deleted_user_name} さんのアカウントを削除しました。"
+
+    # 4. 管理者だが自分自身を削除しようとした場合（オプション）
+    #elsif user.id == current_user.id
+    # redirect_to user_path(user), alert: "管理者であっても自分自身のアカウントは削除できません。"
+
+    # 5. 管理者権限がない場合
+    #else
+    # 権限がない場合はアクセスを拒否
+    # redirect_to root_path, alert: "この操作を実行する権限がありません。"
+    #end
+
   end
 
   def index
