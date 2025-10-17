@@ -17,6 +17,7 @@
           <td><%= user.id %></td>
           <td><%= user.email %></td>
           <td><%= user.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+          <td><%= button_to '削除', user_path(user), method: :delete, form: { data: { turbo_confirm: "確認" } } %></td>
         </tr>
       <% end %>
     </tbody>
