@@ -1,2 +1,57 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<h1>ユーザー詳細</h1>
+
+<nav justify-content-end>
+  <%= link_to '一覧', users_path, class: 'nav-link' %>
+  <table>
+    <tbody>
+      <tr>
+        <th><%= User.human_attribute_name(:id) %></th>
+        <td><%= @user.id %></td>
+      </tr>
+      <tr>
+        <th>氏名</th>
+        <td><%= @user.last_name %><%= @user.first_name %></td>
+      </tr>
+      <tr>
+        <th>メールアドレス</th>
+        <td><%= @user.email %></td>
+      </tr>
+      <tr>
+        <th>パスワード</th>
+        <td><%= @user.password_digest %></td>
+      </tr>
+      <tr>
+        <th>性別</th>
+        <td><%= @user.gender_label %></td>
+      </tr>
+      <tr>
+        <th>電話番号</th>
+        <td><%= @user.phone_mobile %></td>
+      </tr>
+      <tr>
+        <th>緊急連絡先</th>
+        <td><%= @user.phone_emergency %></td>
+      </tr>
+      <tr>
+        <th>家の電話番号</th>
+        <td><%= @user.phone_home %></td>
+      </tr>
+      <tr>
+        <th>緊急連絡先の氏名</th>
+        <td><%= @user.emergency_contact_name %></td>
+      </tr>
+      <tr>
+        <th>続柄</th>
+        <td><%= @user.emergency_contact_relationship %></td>
+      </tr>
+      <tr>
+        <th>住所</th>
+        <td><%= @user.address %></td>
+      </tr>
+      <tr>
+        <th>誕生日</th>
+        <td><%= @user.date_of_birth %></td>
+      </tr>
+    </tbody>
+  </table>
+  <p></p>
