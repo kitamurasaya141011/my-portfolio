@@ -1,7 +1,8 @@
 class User < ApplicationRecord
-  has_many :admins
-  has_many :teachers
-  has_many :students
+  has_secure_password
+  has_one :admin
+  has_one :teacher
+  has_one :student
   has_many :leaves
   belongs_to :role
 end

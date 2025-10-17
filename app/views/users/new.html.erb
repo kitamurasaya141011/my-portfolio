@@ -1,0 +1,100 @@
+<h1>Users#new</h1>
+<%= link_to 'ユーザー一覧', users_path %>
+
+<% # ユーザーの新規登録フォームの例 %>
+<%= form_with(model: @user, local: true) do |f| %>
+  <h2>基本情報</h2>
+
+  <div class="form-group">
+    <%= f.label :last_name, "姓 (漢字)" %>
+    <%= f.text_field :last_name %>
+    <%= f.label :first_name, "名 (漢字)" %>
+    <%= f.text_field :first_name %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :last_name_kana, "セイ (カナ)" %>
+    <%# カナ入力モードを促すオプションを追加 %>
+    <%= f.text_field :last_name_kana, inputmode: "kana" %>
+    <%= f.label :first_name_kana, "メイ (カナ)" %>
+    <%= f.text_field :first_name_kana, inputmode: "kana" %>
+  </div>
+
+  <%# メールアドレス %>
+  <div class="form-group">
+    <%= f.label :email, "メールアドレス" %>
+    <%# email_field はスマホでの入力が容易 %>
+    <%= f.email_field :email %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :password, "パスワード" %>
+    <%# password_field は入力内容をマスク %>
+    <%= f.password_field :password %>
+    <%# パスワード確認用フィールド(将来追加予定) %>
+    <%#= f.label :password_confirmation, "パスワード確認" %>
+    <%#= f.password_field :password_confirmation %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :gender, "性別" %>
+    <%# select/collection_select を使用して、integer型（0, 1, 2...）をドロップダウンで選択させる %>
+    <%= f.select :gender, [
+      ['未設定', 0],
+      ['男性', 1],
+      ['女性', 2],
+      ['その他', 3]
+    ] %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :date_of_birth, "生年月日" %>
+    <%# date_select は年/月/日のドロップダウンを生成する便利なヘルパー %>
+    <%= f.date_select :date_of_birth, start_year: 1950, end_year: Time.current.year %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :address, "現住所" %>
+    <%# 住所は長くなる可能性があるため text_area を推奨 %>
+    <%= f.text_area :address, rows: 3 %>
+  </div>
+
+  <h2>連絡先</h2>
+  
+  <div class="form-group">
+    <%= f.label :phone_mobile, "携帯電話" %>
+    <%= f.text_field :phone_mobile, inputmode: "tel" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :phone_home, "自宅電話" %>
+    <%= f.text_field :phone_home, inputmode: "tel" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :phone_emergency, "緊急連絡先 (電話)" %>
+    <%= f.text_field :phone_emergency, inputmode: "tel" %>
+  </div>
+
+  <h2>緊急連絡先情報</h2>
+  <div class="form-group">
+    <%= f.label :emergency_contact_name, "緊急連絡先 氏名" %>
+    <%= f.text_field :emergency_contact_name %>
+  </div>
+  <div class="form-group">
+    <%= f.label :emergency_contact_relationship, "緊急連絡先 続柄" %>
+    <%= f.text_field :emergency_contact_relationship %>
+  </div>
+
+  <div class="form-group">
+  <%= f.label :role_id, "役割（権限）" %>
+  <%# 修正: @roles（管理者以外のロール）を使用 %>
+  <%= f.collection_select :role_id, @roles, :id, :name,
+                          { prompt: "役割を選択" },
+                          { class: "form-control", required: true } %>
+  </div>
+
+  <%# 送信ボタン %>
+  <div>
+    <%= f.submit "登録する" %>
+  </div>
+<% end %>
+<p>Find me in app/views/users/new.html.erb</p>
